@@ -1,13 +1,13 @@
-import Classes.Address;
-import Classes.Client;
-import Classes.Delivery;
-import Classes.DeliveryCompany;
-import Classes.DeliveryPerson;
-import Classes.DeliveryTime;
-import Classes.Food;
-import Classes.Menu;
-import Classes.Order;
-import Classes.Restaurant;
+import main.java.com.solvd.delivery.classes.Address;
+import main.java.com.solvd.delivery.classes.Client;
+import main.java.com.solvd.delivery.classes.Delivery;
+import main.java.com.solvd.delivery.classes.DeliveryCompany;
+import main.java.com.solvd.delivery.classes.DeliveryPerson;
+import main.java.com.solvd.delivery.classes.DeliveryTime;
+import main.java.com.solvd.delivery.classes.Food;
+import main.java.com.solvd.delivery.classes.Menu;
+import main.java.com.solvd.delivery.classes.Order;
+import main.java.com.solvd.delivery.classes.Restaurant;
 
 public class App {
 
@@ -44,7 +44,7 @@ public class App {
             System.out.println("Delivery guy and the client can't be the same person");
         } else {
             System.out.println("Delivery guy is approved");
-        }        
+        }
         System.out.println(person.toString());
         person.introduce();
         company.addEmployee(person);
