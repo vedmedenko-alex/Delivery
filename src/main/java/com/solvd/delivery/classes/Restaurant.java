@@ -1,8 +1,8 @@
-package main.java.com.solvd.delivery.classes;
+package com.solvd.delivery.classes;
 
-import main.java.com.solvd.delivery.interfaces.HasAddress;
-import main.java.com.solvd.delivery.interfaces.ChangeBalance;
-import main.java.com.solvd.delivery.interfaces.Introduce;
+import com.solvd.delivery.interfaces.HasAddress;
+import com.solvd.delivery.interfaces.ChangeBalance;
+import com.solvd.delivery.interfaces.Introduce;
 
 public class Restaurant implements HasAddress, Introduce, ChangeBalance {
 

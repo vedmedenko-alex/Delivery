@@ -1,6 +1,6 @@
-package main.java.com.solvd.delivery.interfaces;
+package com.solvd.delivery.interfaces;
 
-import main.java.com.solvd.delivery.classes.Address;
+import com.solvd.delivery.classes.Address;
 
 public interface HasAddress {
     

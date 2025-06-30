@@ -1,11 +1,11 @@
-package main.java.com.solvd.delivery.classes;
+package com.solvd.delivery.classes;
 
 public class Address extends Place {
 
     private int apartment;
 
-    public Address(String street, int building, int apartment) {
-        super(street, building);
+    public Address(String city, String street, int building, int apartment, double latitude, double longitude) {
+        super(city, street, building, latitude, longitude);
         this.apartment = apartment;
     }
 
@@ -20,6 +20,6 @@ public class Address extends Place {
 
     @Override
     public String typeAddress() {
-        return ("Address: " + street + ", " + building + "ap. " + apartment);
+        return ("City: " + city + ", " + "Address: " + street + ", " + building + "ap. " + apartment);
     }
 }

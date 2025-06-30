@@ -1,6 +1,8 @@
-package main.java.com.solvd.delivery.interfaces;
+package com.solvd.delivery.interfaces;
+
+import com.solvd.delivery.exceptions.InsufficientFundsException;
 
 public interface Payable {
-    void pay(double amount);
+    void pay(double amount) throws InsufficientFundsException;
     double getBalance();
 }

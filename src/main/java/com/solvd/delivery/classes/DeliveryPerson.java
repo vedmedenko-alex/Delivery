@@ -1,4 +1,4 @@
-package main.java.com.solvd.delivery.classes;
+package com.solvd.delivery.classes;
 
 public class DeliveryPerson extends Person {
 
@@ -8,7 +8,7 @@ public class DeliveryPerson extends Person {
 
     @Override
     public void introduce() {
-        System.out.println("New delivery guy" + name);
+        System.out.println("New delivery guy " + name);
     }
 
     @Override

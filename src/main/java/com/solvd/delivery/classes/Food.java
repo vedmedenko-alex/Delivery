@@ -1,4 +1,4 @@
-package main.java.com.solvd.delivery.classes;
+package com.solvd.delivery.classes;
 
 public class Food extends AbstractItem {
 

@@ -1,5 +1,7 @@
-package main.java.com.solvd.delivery.interfaces;
+package com.solvd.delivery.interfaces;
+
+import com.solvd.delivery.exceptions.IsAdultException;
 
 public interface IsAdult {
-    boolean isAdult();
+    void isAdult() throws IsAdultException;
 }

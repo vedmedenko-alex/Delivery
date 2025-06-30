@@ -1,4 +1,6 @@
-package main.java.com.solvd.delivery.classes;
+package com.solvd.delivery.classes;
+
+import com.solvd.delivery.exceptions.SamePersonException;
 
 public class Delivery {
 
@@ -7,9 +9,12 @@ public class Delivery {
     private double totalPrice;
     private int deliveryTime;
 
-    public Delivery(Order order, DeliveryPerson deliveryPerson, double totalPrice, int deliveryTime) {
+    public Delivery(Order order, DeliveryPerson deliveryPerson, double totalPrice, int deliveryTime) throws SamePersonException {
         if (order == null || order.getItems().isEmpty()) {
             System.out.println("Can't create delivery with an empty order.");
+        }
+        if (deliveryPerson.getName().equals(order.getClient().getName())) {
+            throw new SamePersonException("Delivery person and client cannot be the same person!");
         }
         this.order = order;
         this.deliveryPerson = deliveryPerson;

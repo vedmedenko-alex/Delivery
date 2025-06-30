@@ -1,8 +1,10 @@
-package main.java.com.solvd.delivery.classes;
+package com.solvd.delivery.classes;
 
 import java.util.ArrayList;
 
-import main.java.com.solvd.delivery.interfaces.Payable;
+import com.solvd.delivery.exceptions.InsufficientFundsException;
+import com.solvd.delivery.exceptions.ItemNotFoundException;
+import com.solvd.delivery.interfaces.Payable;
 
 public abstract class AbstractOrder<T extends AbstractItem> {
 
@@ -22,10 +24,9 @@ public abstract class AbstractOrder<T extends AbstractItem> {
     //     }
     // }
 
-    public void addItem(String itemName) {
+    public void addItem(String itemName) throws InsufficientFundsException, ItemNotFoundException {
         if (!(client instanceof Payable)) {
-            System.out.println("Client is not eligible to pay.");
-            return;
+            throw new InsufficientFundsException("Client is not eligible to pay.");
         }
 
         T item = getItemFromMenu(itemName);
@@ -37,13 +38,12 @@ public abstract class AbstractOrder<T extends AbstractItem> {
                 restaurant.changeBalance(item.getPrice());
                 System.out.println(itemName + " added to order.");
             } else {
-                System.out.println("Insufficient funds for " + itemName);
+                throw new InsufficientFundsException("Insufficient funds for " + itemName);
             }
         } else {
-            System.out.println(itemName + " not found in menu.");
+            throw new ItemNotFoundException(itemName + " not found in menu.");
         }
     }
-
 
     public ArrayList<T> getItems() {
         return items;

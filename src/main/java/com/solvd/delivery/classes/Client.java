@@ -1,8 +1,10 @@
-package main.java.com.solvd.delivery.classes;
-import main.java.com.solvd.delivery.interfaces.ChangeBalance;
-import main.java.com.solvd.delivery.interfaces.HasAddress;
-import main.java.com.solvd.delivery.interfaces.IsAdult;
-import main.java.com.solvd.delivery.interfaces.Payable;
+package com.solvd.delivery.classes;
+import com.solvd.delivery.exceptions.InsufficientFundsException;
+import com.solvd.delivery.exceptions.IsAdultException;
+import com.solvd.delivery.interfaces.ChangeBalance;
+import com.solvd.delivery.interfaces.HasAddress;
+import com.solvd.delivery.interfaces.IsAdult;
+import com.solvd.delivery.interfaces.Payable;
 
 public class Client extends Person implements HasAddress, ChangeBalance, IsAdult, Payable {
 
@@ -43,16 +45,18 @@ public class Client extends Person implements HasAddress, ChangeBalance, IsAdult
     }
 
     @Override
-    public boolean isAdult() {
-        return age >= 18;
+    public void isAdult() throws IsAdultException {
+        if (age < 18) {
+            throw new IsAdultException("Client " + name + " is not adult!");
+        }
     }
 
     @Override
-    public void pay(double amount) {
+    public void pay(double amount) throws InsufficientFundsException{
         if (money >= amount) {
             money -= amount;
         } else {
-            System.out.println("Insufficient funds.");
+            throw new InsufficientFundsException("Not enough balance to pay " + amount);
         }
     }
 

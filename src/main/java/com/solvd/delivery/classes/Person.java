@@ -1,6 +1,7 @@
-package main.java.com.solvd.delivery.classes;
+package com.solvd.delivery.classes;
 import java.util.Objects;
-import main.java.com.solvd.delivery.interfaces.Introduce;
+
+import com.solvd.delivery.interfaces.Introduce;
 
 public abstract class Person implements Introduce{
 
