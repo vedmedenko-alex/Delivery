@@ -1,5 +1,7 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.delivery;
 
+import com.solvd.delivery.classes.food.Food;
+import com.solvd.delivery.classes.humans.DeliveryPerson;
 import com.solvd.delivery.exceptions.SamePersonException;
 
 public class Delivery {

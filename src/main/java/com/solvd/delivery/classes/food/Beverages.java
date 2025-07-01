@@ -1,4 +1,6 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.food;
+
+import com.solvd.delivery.classes.abstracts.AbstractItem;
 
 public class Beverages extends AbstractItem {
 

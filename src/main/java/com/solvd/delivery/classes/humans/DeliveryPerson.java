@@ -1,4 +1,6 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.humans;
+
+// import com.solvd.delivery.classes.Person;
 
 public class DeliveryPerson extends Person {
 

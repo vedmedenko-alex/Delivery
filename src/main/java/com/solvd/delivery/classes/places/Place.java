@@ -1,4 +1,4 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.places;
 
 public abstract class Place {
 

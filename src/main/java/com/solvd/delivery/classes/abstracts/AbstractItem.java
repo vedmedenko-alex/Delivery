@@ -1,4 +1,4 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.abstracts;
 
 public abstract class AbstractItem {
 

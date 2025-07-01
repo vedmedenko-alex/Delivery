@@ -1,5 +1,6 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.delivery;
 
+import com.solvd.delivery.classes.places.Address;
 import com.solvd.delivery.exceptions.DiffCityException;
 
 public class DeliveryTime {

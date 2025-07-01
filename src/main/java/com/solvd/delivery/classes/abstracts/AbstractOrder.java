@@ -1,7 +1,9 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.abstracts;
 
 import java.util.ArrayList;
 
+import com.solvd.delivery.classes.humans.Client;
+import com.solvd.delivery.classes.places.Restaurant;
 import com.solvd.delivery.exceptions.InsufficientFundsException;
 import com.solvd.delivery.exceptions.ItemNotFoundException;
 import com.solvd.delivery.interfaces.Payable;

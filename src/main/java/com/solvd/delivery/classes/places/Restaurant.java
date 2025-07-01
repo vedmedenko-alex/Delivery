@@ -1,6 +1,7 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.places;
 
 import com.solvd.delivery.interfaces.HasAddress;
+import com.solvd.delivery.classes.food.Menu;
 import com.solvd.delivery.interfaces.ChangeBalance;
 import com.solvd.delivery.interfaces.Introduce;
 

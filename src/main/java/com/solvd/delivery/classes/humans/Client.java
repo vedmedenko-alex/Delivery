@@ -1,4 +1,5 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.humans;
+import com.solvd.delivery.classes.places.Address;
 import com.solvd.delivery.exceptions.InsufficientFundsException;
 import com.solvd.delivery.exceptions.IsAdultException;
 import com.solvd.delivery.interfaces.ChangeBalance;

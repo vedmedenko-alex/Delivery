@@ -1,4 +1,4 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.food;
 
 import java.util.ArrayList;
 import java.util.Arrays;

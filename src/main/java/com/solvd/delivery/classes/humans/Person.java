@@ -1,4 +1,4 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.humans;
 import java.util.Objects;
 
 import com.solvd.delivery.interfaces.Introduce;

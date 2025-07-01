@@ -1,6 +1,8 @@
-package com.solvd.delivery.classes;
+package com.solvd.delivery.classes.abstracts;
 
 import java.util.ArrayList;
+
+import com.solvd.delivery.classes.humans.DeliveryPerson;
 
 public abstract class AbstractCompany {
 
