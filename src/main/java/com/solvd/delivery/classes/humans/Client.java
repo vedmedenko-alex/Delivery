@@ -1,4 +1,8 @@
 package com.solvd.delivery.classes.humans;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.solvd.delivery.App;
 import com.solvd.delivery.classes.places.Address;
 import com.solvd.delivery.exceptions.InsufficientFundsException;
 import com.solvd.delivery.exceptions.IsAdultException;
@@ -9,9 +13,11 @@ import com.solvd.delivery.interfaces.Payable;
 
 public class Client extends Person implements HasAddress, ChangeBalance, IsAdult, Payable {
 
+    private static final Logger logger = LoggerFactory.getLogger(App.class);
+    
     private Address address;
     private double money;
-    private int age;
+    private final int age;
 
     public Client(String name, Address address, double money, int age) {
         super(name);
@@ -32,7 +38,7 @@ public class Client extends Person implements HasAddress, ChangeBalance, IsAdult
 
     @Override
     public void introduce() {
-        System.out.println("New client " + name + " makes an order");
+        logger.info("New client " + name + " makes an order");
     }
 
     @Override

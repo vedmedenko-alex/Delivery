@@ -2,6 +2,10 @@ package com.solvd.delivery.classes.abstracts;
 
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.solvd.delivery.App;
 import com.solvd.delivery.classes.humans.Client;
 import com.solvd.delivery.classes.places.Restaurant;
 import com.solvd.delivery.exceptions.InsufficientFundsException;
@@ -9,6 +13,8 @@ import com.solvd.delivery.exceptions.ItemNotFoundException;
 import com.solvd.delivery.interfaces.Payable;
 
 public abstract class AbstractOrder<T extends AbstractItem> {
+
+    private static final Logger logger = LoggerFactory.getLogger(App.class);
 
     protected Client client;
     protected Restaurant restaurant;
@@ -18,13 +24,6 @@ public abstract class AbstractOrder<T extends AbstractItem> {
         this.client = client;
         this.restaurant = restaurant;
     }
-
-    // public void addItem(String itemName) {
-    //     T item = getItemFromMenu(itemName);
-    //     if (item != null) {
-    //         items.add(item);
-    //     }
-    // }
 
     public void addItem(String itemName) throws InsufficientFundsException, ItemNotFoundException {
         if (!(client instanceof Payable)) {
@@ -38,7 +37,7 @@ public abstract class AbstractOrder<T extends AbstractItem> {
                 items.add(item);
                 payableClient.pay(item.getPrice());
                 restaurant.changeBalance(item.getPrice());
-                System.out.println(itemName + " added to order.");
+                logger.info(itemName + " added to order.");
             } else {
                 throw new InsufficientFundsException("Insufficient funds for " + itemName);
             }

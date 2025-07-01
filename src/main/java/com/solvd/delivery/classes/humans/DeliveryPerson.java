@@ -1,8 +1,13 @@
 package com.solvd.delivery.classes.humans;
 
-// import com.solvd.delivery.classes.Person;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.solvd.delivery.App;
 
 public class DeliveryPerson extends Person {
+
+    private static final Logger logger = LoggerFactory.getLogger(App.class);
 
     public DeliveryPerson(String name) {
         super(name);
@@ -10,7 +15,7 @@ public class DeliveryPerson extends Person {
 
     @Override
     public void introduce() {
-        System.out.println("New delivery guy " + name);
+        logger.info("New delivery guy " + name);
     }
 
     @Override

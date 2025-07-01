@@ -1,10 +1,16 @@
 package com.solvd.delivery.classes.delivery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.solvd.delivery.App;
 import com.solvd.delivery.classes.food.Food;
 import com.solvd.delivery.classes.humans.DeliveryPerson;
 import com.solvd.delivery.exceptions.SamePersonException;
 
 public class Delivery {
+
+    private static final Logger logger = LoggerFactory.getLogger(App.class);
 
     private Order order;
     private DeliveryPerson deliveryPerson;
@@ -13,7 +19,7 @@ public class Delivery {
 
     public Delivery(Order order, DeliveryPerson deliveryPerson, double totalPrice, int deliveryTime) throws SamePersonException {
         if (order == null || order.getItems().isEmpty()) {
-            System.out.println("Can't create delivery with an empty order.");
+            logger.info("Can't create delivery with an empty order.");
         }
         if (deliveryPerson.getName().equals(order.getClient().getName())) {
             throw new SamePersonException("Delivery person and client cannot be the same person!");
