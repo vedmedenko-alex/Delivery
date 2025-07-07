@@ -66,6 +66,10 @@ public abstract class AbstractOrder<T extends AbstractItem> {
         return client;
     }
 
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
     public void setClient(Client client) {
         this.client = client;
     }

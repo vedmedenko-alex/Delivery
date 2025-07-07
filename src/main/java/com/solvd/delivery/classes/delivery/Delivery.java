@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.solvd.delivery.App;
-import com.solvd.delivery.classes.food.Food;
+import com.solvd.delivery.classes.abstracts.AbstractItem;
 import com.solvd.delivery.classes.humans.DeliveryPerson;
 import com.solvd.delivery.exceptions.SamePersonException;
 
@@ -34,7 +34,7 @@ public class Delivery {
         return order;
     }
 
-    private void setOrder(Order order) {
+    private void setOrder(Order order) { //not used
         this.order = order;
     }
 
@@ -70,7 +70,7 @@ public class Delivery {
         StringBuilder sb = new StringBuilder();
         sb.append("Ordered by ").append(order.getClient().getName()).append("\n");
         sb.append("Order:\n");
-        for (Food item : order.getItems()) {
+        for (AbstractItem item : order.getItems()) {
             sb.append(" - ").append(item.getName()).append(" ").append(item.getPrice()).append(" UAH\n");
         }
         sb.append("Delivery by: ").append(deliveryPerson.getName()).append("\n");

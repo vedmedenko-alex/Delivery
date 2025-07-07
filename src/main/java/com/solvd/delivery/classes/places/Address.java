@@ -20,6 +20,6 @@ public class Address extends Place {
 
     @Override
     public String typeAddress() {
-        return ("City: " + city + ", " + "Address: " + street + ", " + building + "ap. " + apartment);
+        return ("City: " + city + ", " + "Address: " + street + " " + building + ", " + "ap. " + apartment);
     }
 }
