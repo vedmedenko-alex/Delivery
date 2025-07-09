@@ -30,14 +30,20 @@ The project demonstrates the use of various collection types and generic classes
 Contains a private inner Node<T> class with encapsulated data
 Provides methods like add, get, print
 Full encapsulation with proper getters and setters
-
-
+- AbstractCompany - generic company using Set to store employees.
+- AbstractOrder - generic order using ArrayList to store ordered items.
+- Menu - generic class for storing dishes and prices using ArrayLish, Map and TreeMap.
+- DeliveryManeger - class that uses Queue and Set for assigning each order to available delivery persons. 
 
 ## Custom Exceptions
 
 The project includes several custom exceptions:
 
-
+- DiffCityException - Thrown when restaurant and client in different locations.
+- InsufficientFundsException - Thrown when client doesn't have enought money.
+- IsAdultException - Thrown when client is not 18+ years old.
+- ItemNotFoundException - Thrown when menu doesn't have ordered item.
+- SamePersoneException - Thrown when client and delivery persone are the same persone.
 
 ## Encapsulation
 All classes follow proper encapsulation principles:
