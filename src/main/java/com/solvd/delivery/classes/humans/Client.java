@@ -3,6 +3,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.solvd.delivery.App;
+import com.solvd.delivery.classes.enums.HumanType;
 import com.solvd.delivery.classes.places.Address;
 import com.solvd.delivery.exceptions.InsufficientFundsException;
 import com.solvd.delivery.exceptions.IsAdultException;
@@ -24,6 +25,7 @@ public class Client extends Person implements HasAddress, ChangeBalance, IsAdult
         this.address = address;
         this.money = money;
         this.age = age;
+        setHumanType(HumanType.CLIENT);
     }
 
     @Override
@@ -38,12 +40,12 @@ public class Client extends Person implements HasAddress, ChangeBalance, IsAdult
 
     @Override
     public void introduce() {
-        logger.info("New client " + name + " makes an order");
+        logger.info("New " + humanType + " " + name + " makes an order");
     }
 
     @Override
     public String toString() {
-        return "Client { name = " + name + " }";
+        return humanType + " { name = " + name + " }";
     }
 
     @Override

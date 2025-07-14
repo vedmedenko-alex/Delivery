@@ -1,8 +1,6 @@
 package com.solvd.delivery;
 
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -44,7 +42,7 @@ public class App {
         Beverages beverage2 = new Beverages("Gorilka", 20, true);
 
         Menu homeMenu = new Menu(homeDish1, homeDish2, homeDish3, beverage1, homeDish4, beverage2);
-        // logger.info(homeMenu.toString());
+        logger.info(homeMenu.toString());
         homeMenu.printMenu();
         homeMenu.printOrderedMenu();
 

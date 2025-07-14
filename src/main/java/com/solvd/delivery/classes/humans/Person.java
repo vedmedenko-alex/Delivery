@@ -1,11 +1,13 @@
 package com.solvd.delivery.classes.humans;
 import java.util.Objects;
 
+import com.solvd.delivery.classes.enums.HumanType;
 import com.solvd.delivery.interfaces.Introduce;
 
 public abstract class Person implements Introduce{
 
     protected String name;
+    protected HumanType humanType;
 
     public Person(String name) {
         this.name = name;
@@ -35,5 +37,13 @@ public abstract class Person implements Introduce{
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    public HumanType getHumanType() {
+        return humanType;
+    }
+
+    public void setHumanType(HumanType humanType) {
+        this.humanType = humanType;
     }
 }

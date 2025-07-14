@@ -1,5 +1,7 @@
 package com.solvd.delivery.classes.places;
 
+import com.solvd.delivery.classes.enums.PlaceType;
+
 public abstract class Place {
 
     protected String city;
@@ -7,6 +9,7 @@ public abstract class Place {
     protected int building;
     protected double latitude;
     protected double longitude;
+    private PlaceType placeType;
 
     public Place(String city, String street, int building, double latitude, double longitude) {
         this.city = city;
@@ -57,4 +60,12 @@ public abstract class Place {
     }
 
     public abstract String typeAddress();
+
+    public PlaceType getPlaceType() {
+        return placeType;
+    }
+
+    public void setPlaceType(PlaceType placeType) {
+        this.placeType = placeType;
+    }
 }

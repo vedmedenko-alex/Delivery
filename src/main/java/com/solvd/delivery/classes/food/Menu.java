@@ -1,9 +1,7 @@
 package com.solvd.delivery.classes.food;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -73,7 +71,13 @@ public class Menu<T extends AbstractItem> {
         StringBuilder sb = new StringBuilder();
         sb.append("Menu: \n");
         for (T dish : storage) {
-            sb.append(" - ").append(dish.getName()).append("\n");
+            sb.append(" - ")
+                .append(dish.getName())
+                .append(" (")
+                .append(dish.getType())
+                .append(") ")
+                .append(dish.getPrice())
+                .append("\n");
         }
         return sb.toString();
     }
@@ -82,7 +86,7 @@ public class Menu<T extends AbstractItem> {
     public void printMenu() {
         logger.info("Menu:");
         for (Map.Entry<String, Double> entry : dishPrices.entrySet()) {
-            logger.info(entry.getKey() + " " + entry.getValue()); 
+            logger.info(entry.getKey() + " " +  entry.getValue()); 
         }
     }
 
