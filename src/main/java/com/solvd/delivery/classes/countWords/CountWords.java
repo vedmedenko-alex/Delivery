@@ -18,7 +18,7 @@ public class CountWords {
     private static final Logger logger = LoggerFactory.getLogger(CountWords.class);
 
     public static void main(String[] args) {
-        File output = new File("Output.txt");
+        File output = new File("src/main/resources/com/solvd/delivery/classes/countWords/output.txt");
 
         try(InputStream inputStream = CountWords.class.getClassLoader().getResourceAsStream("com/solvd/delivery/classes/countWords/input.txt")) {
             if(inputStream == null) {
