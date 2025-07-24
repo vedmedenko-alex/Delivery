@@ -10,6 +10,7 @@ import com.solvd.delivery.classes.humans.Client;
 import com.solvd.delivery.classes.places.Restaurant;
 import com.solvd.delivery.exceptions.InsufficientFundsException;
 import com.solvd.delivery.exceptions.ItemNotFoundException;
+import com.solvd.delivery.interfaces.ChangeBalance;
 import com.solvd.delivery.interfaces.Payable;
 
 public abstract class AbstractOrder<T extends AbstractItem> {
@@ -25,7 +26,7 @@ public abstract class AbstractOrder<T extends AbstractItem> {
         this.restaurant = restaurant;
     }
 
-    public void addItem(String itemName) throws InsufficientFundsException, ItemNotFoundException {
+    public void addItem(String itemName, ChangeBalance changeBalance) throws InsufficientFundsException, ItemNotFoundException {
         if (!(client instanceof Payable)) {
             throw new InsufficientFundsException("Client is not eligible to pay.");
         }
@@ -37,6 +38,7 @@ public abstract class AbstractOrder<T extends AbstractItem> {
                 items.add(item);
                 payableClient.pay(item.getPrice());
                 restaurant.changeBalance(item.getPrice());
+                changeBalance.changeBalance(item.getPrice());
                 logger.info(itemName + " added to order.");
             } else {
                 throw new InsufficientFundsException("Insufficient funds for " + itemName);
@@ -55,11 +57,12 @@ public abstract class AbstractOrder<T extends AbstractItem> {
     }
 
     public double totalPrice() {
-        double total = 0;
-        for (T item : items) {
-            total += item.getPrice();
-        }
-        return total;
+        // double total = 0;
+        // for (T item : items) {
+        //     total += item.getPrice();
+        // }
+        // return total;
+        return items.stream().mapToDouble(T::getPrice).sum();
     }
 
     public Client getClient() {

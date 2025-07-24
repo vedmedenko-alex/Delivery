@@ -7,12 +7,11 @@ import com.solvd.delivery.classes.enums.HumanType;
 import com.solvd.delivery.classes.places.Address;
 import com.solvd.delivery.exceptions.InsufficientFundsException;
 import com.solvd.delivery.exceptions.IsAdultException;
-import com.solvd.delivery.interfaces.ChangeBalance;
 import com.solvd.delivery.interfaces.HasAddress;
 import com.solvd.delivery.interfaces.IsAdult;
 import com.solvd.delivery.interfaces.Payable;
 
-public class Client extends Person implements HasAddress, ChangeBalance, IsAdult, Payable {
+public class Client extends Person implements HasAddress, IsAdult, Payable {
 
     private static final Logger logger = LoggerFactory.getLogger(App.class);
     
@@ -48,7 +47,7 @@ public class Client extends Person implements HasAddress, ChangeBalance, IsAdult
         return humanType + " { name = " + name + " }";
     }
 
-    @Override
+    // @Override
     public void changeBalance(double price) {
         this.money -= price;
     }

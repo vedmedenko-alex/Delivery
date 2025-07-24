@@ -40,9 +40,10 @@ public class CountWords {
             StringBuilder result = new StringBuilder();
             result.append("-----Word count-----\n");
 
-            for(Map.Entry<String, Integer> entry: countingWord.entrySet()) {
-                result.append(entry.getKey()).append(" - ").append(entry.getValue()).append("\n");
-            }
+            // for(Map.Entry<String, Integer> entry: countingWord.entrySet()) {
+            //     result.append(entry.getKey()).append(" - ").append(entry.getValue()).append("\n");
+            // }
+            countingWord.forEach((string, integer) -> result.append(string).append(" - ").append(integer).append("\n"));
             
             if(!output.exists()) {
                 output.createNewFile();

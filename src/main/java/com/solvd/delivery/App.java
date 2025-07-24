@@ -23,6 +23,8 @@ import com.solvd.delivery.exceptions.InsufficientFundsException;
 import com.solvd.delivery.exceptions.IsAdultException;
 import com.solvd.delivery.exceptions.ItemNotFoundException;
 import com.solvd.delivery.exceptions.SamePersonException;
+import com.solvd.delivery.interfaces.functionalInterfaces.DistanceCalculator;
+import com.solvd.delivery.interfaces.functionalInterfaces.IsAlcoholic;
 
 public class App {
 
@@ -40,6 +42,9 @@ public class App {
         Beverages beverage1 = new Beverages("Wine", 40, true);
         Food homeDish4 = new Food("Cake Symskiy kashtan", 55);
         Beverages beverage2 = new Beverages("Gorilka", 20, true);
+
+        IsAlcoholic isAlcoholic = beverage -> beverage.getAlcohol();
+        logger.info("Is " + beverage2.getName() + " alcoholic? " + isAlcoholic.check(beverage2));
 
         Menu homeMenu = new Menu(homeDish1, homeDish2, homeDish3, beverage1, homeDish4, beverage2);
         logger.info(homeMenu.toString());
@@ -59,9 +64,9 @@ public class App {
 
         Order order1 = new Order(client, restaurant);
         try {
-            order1.addItem("Bograch");
-            order1.addItem("Varenyki");
-            order1.addItem("Kvas");
+            order1.addItem("Bograch", price -> restaurant.changeBalance(price));
+            order1.addItem("Varenyki", price -> restaurant.changeBalance(price));
+            order1.addItem("Kvas", price -> restaurant.changeBalance(price));
         } catch (InsufficientFundsException e) {
             logger.warn("Payment problem: " + e.getMessage());
         } catch (ItemNotFoundException e) {
@@ -70,8 +75,8 @@ public class App {
 
         Order order2 = new Order(client, restaurant);
         try {
-            order2.addItem("Cake Symskiy kashtan");
-            order2.addItem("Gorilka");
+            order2.addItem("Cake Symskiy kashtan", price -> restaurant.changeBalance(price));
+            order2.addItem("Gorilka", price -> restaurant.changeBalance(price));
         } catch (InsufficientFundsException e) {
             logger.warn("Payment problem: " + e.getMessage());
         } catch (ItemNotFoundException e) {
@@ -95,7 +100,10 @@ public class App {
         manager.addOrder(order1);
         manager.addOrder(order2);
 
-        DeliveryTime deliveryTimeCalculator = new DeliveryTime();
+        DistanceCalculator calculator = (a1, a2)
+                -> Math.sqrt(Math.pow(a1.getLatitude() - a2.getLatitude(), 2)
+                        + Math.pow(a1.getLongitude() - a2.getLongitude(), 2));
+        DeliveryTime deliveryTimeCalculator = new DeliveryTime(calculator);
 
         while (manager.hasPendingOrders() && manager.hasAvailableDeliveryPersons()) {
             Delivery delivery = manager.processNextOrder(deliveryTimeCalculator);

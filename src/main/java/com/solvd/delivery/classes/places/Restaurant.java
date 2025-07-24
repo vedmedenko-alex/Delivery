@@ -1,16 +1,14 @@
 package com.solvd.delivery.classes.places;
 
-import com.solvd.delivery.interfaces.HasAddress;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.solvd.delivery.App;
 import com.solvd.delivery.classes.food.Menu;
-import com.solvd.delivery.interfaces.ChangeBalance;
+import com.solvd.delivery.interfaces.HasAddress;
 import com.solvd.delivery.interfaces.Introduce;
 
-public class Restaurant implements HasAddress, Introduce, ChangeBalance {
+public class Restaurant implements HasAddress, Introduce {
 
     private static final Logger logger = LoggerFactory.getLogger(App.class);
     
@@ -68,7 +66,7 @@ public class Restaurant implements HasAddress, Introduce, ChangeBalance {
         return "Restaurant " + name + " { " + address.typeAddress() + " }";
     }
 
-    @Override
+    // @Override
     public void changeBalance(double price) {
         this.income += price;
     }

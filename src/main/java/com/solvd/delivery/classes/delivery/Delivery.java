@@ -1,5 +1,7 @@
 package com.solvd.delivery.classes.delivery;
 
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,9 +72,10 @@ public class Delivery {
         StringBuilder sb = new StringBuilder();
         sb.append("Ordered by ").append(order.getClient().getName()).append("\n");
         sb.append("Order:\n");
-        for (AbstractItem item : order.getItems()) {
-            sb.append(" - ").append(item.getName()).append(" ").append(item.getPrice()).append(" UAH\n");
-        }
+        // for (AbstractItem item : order.getItems()) {
+        //     sb.append(" - ").append(item.getName()).append(" ").append(item.getPrice()).append(" UAH\n");
+        // }
+        order.getItems().forEach(item -> sb.append(" - ").append(item.getName()).append(" ").append(item.getPrice()).append(" UAH\n"));
         sb.append("Delivery by: ").append(deliveryPerson.getName()).append("\n");
         sb.append("Delivery time: ").append(deliveryTime).append(" min.\n");
         sb.append("Total price: ").append(totalPrice).append(" UAH");
