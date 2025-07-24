@@ -1,4 +1,4 @@
-package com.solvd.delivery.interfaces;
+package com.solvd.delivery.interfaces.functionalInterfaces;
 
 @FunctionalInterface
 public interface ChangeBalance {

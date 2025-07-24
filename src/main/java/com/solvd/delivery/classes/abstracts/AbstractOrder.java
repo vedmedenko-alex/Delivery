@@ -10,8 +10,8 @@ import com.solvd.delivery.classes.humans.Client;
 import com.solvd.delivery.classes.places.Restaurant;
 import com.solvd.delivery.exceptions.InsufficientFundsException;
 import com.solvd.delivery.exceptions.ItemNotFoundException;
-import com.solvd.delivery.interfaces.ChangeBalance;
 import com.solvd.delivery.interfaces.Payable;
+import com.solvd.delivery.interfaces.functionalInterfaces.ChangeBalance;
 
 public abstract class AbstractOrder<T extends AbstractItem> {
 
