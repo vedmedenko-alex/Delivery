@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.solvd.delivery.App;
+import com.solvd.delivery.annotations.MinPriceLimit;
 import com.solvd.delivery.classes.humans.Client;
 import com.solvd.delivery.classes.places.Restaurant;
 import com.solvd.delivery.exceptions.InsufficientFundsException;
@@ -26,23 +27,11 @@ public abstract class AbstractOrder<T extends AbstractItem> {
         this.restaurant = restaurant;
     }
 
-    public void addItem(String itemName, ChangeBalance changeBalance) throws InsufficientFundsException, ItemNotFoundException {
-        if (!(client instanceof Payable)) {
-            throw new InsufficientFundsException("Client is not eligible to pay.");
-        }
-
+    public void addItem(String itemName) throws ItemNotFoundException {
         T item = getItemFromMenu(itemName);
         if (item != null) {
-            Payable payableClient = (Payable) client;
-            if (payableClient.getBalance() >= item.getPrice()) {
-                items.add(item);
-                payableClient.pay(item.getPrice());
-                restaurant.changeBalance(item.getPrice());
-                changeBalance.changeBalance(item.getPrice());
-                logger.info(itemName + " added to order.");
-            } else {
-                throw new InsufficientFundsException("Insufficient funds for " + itemName);
-            }
+            items.add(item);
+            logger.info(itemName + " added to order.");
         } else {
             throw new ItemNotFoundException(itemName + " not found in menu.");
         }
@@ -77,9 +66,37 @@ public abstract class AbstractOrder<T extends AbstractItem> {
         this.client = client;
     }
 
-    public void changeBalance(Client client, Restaurant restaurant) {
-        restaurant.changeBalance(totalPrice());
-        client.changeBalance(totalPrice());
+    public void finalizeOrderAndCharge(ChangeBalance changeBalance) throws InsufficientFundsException {
+        double total = totalPrice();
+
+        try {
+            Class<?> clazz = this.getClass();
+            if (clazz.isAnnotationPresent(MinPriceLimit.class)) {
+                MinPriceLimit annotation = clazz.getAnnotation(MinPriceLimit.class);
+                double minValue = annotation.min();
+                if (total < minValue) {
+                    throw new IllegalArgumentException("Minimum order value is : " + minValue + " UAH. Current order value: " + total);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error in checking minimum order value: {}", e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+        if (!(client instanceof Payable)) {
+            throw new InsufficientFundsException("Client is not eligible to pay.");
+        }
+
+        Payable payableClient = (Payable) client;
+
+        if (payableClient.getBalance() < total) {
+            throw new InsufficientFundsException("Insufficient funds to pay: " + total + " UAH");
+        }
+
+        payableClient.pay(total);
+        restaurant.changeBalance(total);
+        changeBalance.changeBalance(total);
+        logger.info("Client {} payed {} UAH", client.getName(), total);
     }
 
     protected abstract T getItemFromMenu(String itemName);

@@ -64,23 +64,32 @@ public class App {
 
         Order order1 = new Order(client, restaurant);
         try {
-            order1.addItem("Bograch", price -> restaurant.changeBalance(price));
-            order1.addItem("Varenyki", price -> restaurant.changeBalance(price));
-            order1.addItem("Kvas", price -> restaurant.changeBalance(price));
+            order1.addItem("Bograch");
+            order1.addItem("Varenyki");
+            order1.addItem("Kvas");
+
+            order1.finalizeOrderAndCharge(price -> restaurant.changeBalance(price));
         } catch (InsufficientFundsException e) {
             logger.warn("Payment problem: " + e.getMessage());
         } catch (ItemNotFoundException e) {
             logger.error("No such item in menu. " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            logger.error("Order validation failed: " + e.getMessage());
         }
 
         Order order2 = new Order(client, restaurant);
         try {
-            order2.addItem("Cake Symskiy kashtan", price -> restaurant.changeBalance(price));
-            order2.addItem("Gorilka", price -> restaurant.changeBalance(price));
+            order2.addItem("Cake Symskiy kashtan");
+            order2.addItem("Gorilka");
+
+            order2.finalizeOrderAndCharge(price -> restaurant.changeBalance(price));
+
         } catch (InsufficientFundsException e) {
             logger.warn("Payment problem: " + e.getMessage());
         } catch (ItemNotFoundException e) {
             logger.error("No such item in menu. " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            logger.error("Order validation failed: " + e.getMessage());
         }
 
         // Queue<Order> orderQueue = new LinkedList<>();
@@ -101,8 +110,8 @@ public class App {
         manager.addOrder(order2);
 
         DistanceCalculator calculator = (a1, a2)
-                -> Math.sqrt(Math.pow(a1.getLatitude() - a2.getLatitude(), 2)
-                        + Math.pow(a1.getLongitude() - a2.getLongitude(), 2));
+                -> Math.sqrt(Math.pow(a1.latitude() - a2.latitude(), 2)
+                        + Math.pow(a1.longitude() - a2.longitude(), 2));
         DeliveryTime deliveryTimeCalculator = new DeliveryTime(calculator);
 
         while (manager.hasPendingOrders() && manager.hasAvailableDeliveryPersons()) {

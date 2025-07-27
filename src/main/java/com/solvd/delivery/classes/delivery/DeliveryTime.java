@@ -13,7 +13,7 @@ public class DeliveryTime {
     }
     
     public int deliveryTime(Address clientAddress, Address restaurantAddress) throws DiffCityException {
-        if (clientAddress.getCity().equals(restaurantAddress.getCity())) {
+        if (clientAddress.city().equals(restaurantAddress.city())) {
             // double distance = Math.sqrt(Math.pow(restaurantAddress.getLatitude() - clientAddress.getLatitude(),2) + Math.pow(restaurantAddress.getLongitude() - clientAddress.getLongitude(),2));
             double distance = calculator.calculate(clientAddress, restaurantAddress);
             if (distance >= 100) {
