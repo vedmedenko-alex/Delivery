@@ -116,7 +116,7 @@ public class App {
 
         while (manager.hasPendingOrders() && manager.hasAvailableDeliveryPersons()) {
             Delivery delivery = manager.processNextOrder(deliveryTimeCalculator);
-            System.out.println(delivery);
+            logger.info(delivery.toString());
         }
 
         // try {

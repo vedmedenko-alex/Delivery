@@ -1,5 +1,8 @@
 package com.solvd.delivery.classes.customLinkedList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class MyLinkedList {
 
     private static class Node<T> {
@@ -13,6 +16,9 @@ public class MyLinkedList {
     }
 
     private static class CustomLinkedList<T> {
+
+        private static final Logger logger = LoggerFactory.getLogger(CustomLinkedList.class);
+
         private Node<T> head;
         public void add(T data) {
             Node<T> newNode = new Node<>(data);
@@ -54,14 +60,14 @@ public class MyLinkedList {
         public void print() {
             Node<T> currentNode = head;
             while (currentNode != null) {
-                System.out.println(currentNode.data + " / ");
+                logger.info(currentNode.data + " / ");
                 currentNode = currentNode.next;
             }
         }
 
         public T get(int index) {
             if (index < 0) {
-                System.out.println("Invalid index");
+                logger.warn("Invalid index");
                 return null;
             }
 
@@ -69,13 +75,13 @@ public class MyLinkedList {
             int currentIndex = 0;
             while (currentNode != null) {
                 if (currentIndex == index) {
-                    System.out.println(currentNode.data);
+                    logger.info(currentNode.data.toString());
                     return currentNode.data;
                 }
                 currentNode = currentNode.next;
                 currentIndex ++;
             }
-            System.out.println("No element");
+            logger.warn("No element");
             return null;
         }
     }
