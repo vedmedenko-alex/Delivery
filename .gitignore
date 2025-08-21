@@ -1,7 +1,7 @@
-/target/
+**/target/
 *.log
 *.class
 *.iml
-/.idea/
-/.vscode/
-/.DS_Store/
+**/.idea/
+**/.vscode/
+**/.DS_Store/
