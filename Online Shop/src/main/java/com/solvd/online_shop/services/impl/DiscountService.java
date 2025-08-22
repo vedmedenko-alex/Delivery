@@ -3,14 +3,14 @@ package com.solvd.online_shop.services.impl;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.solvd.online_shop.dao.impl.IDiscountDao;
+import com.solvd.online_shop.dao.impl.DiscountDao;
 import com.solvd.online_shop.models.Discount;
 
 public class DiscountService {
-    private final IDiscountDao discountDao;
+    private final DiscountDao discountDao;
 
     public DiscountService() {
-        this.discountDao = new IDiscountDao();
+        this.discountDao = new DiscountDao();
     }
 
     public void addDiscount(Discount discount) throws SQLException {

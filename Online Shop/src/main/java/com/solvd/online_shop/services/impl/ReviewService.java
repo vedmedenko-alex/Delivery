@@ -3,14 +3,14 @@ package com.solvd.online_shop.services.impl;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.solvd.online_shop.dao.impl.IReviewDao;
+import com.solvd.online_shop.dao.impl.ReviewDao;
 import com.solvd.online_shop.models.Review;
 
 public class ReviewService {
-    private IReviewDao reviewDao;
+    private ReviewDao reviewDao;
 
     public ReviewService() {
-        reviewDao = new IReviewDao();
+        reviewDao = new ReviewDao();
     }
 
     public void addReview(Review review) throws SQLException {

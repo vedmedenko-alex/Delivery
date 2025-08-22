@@ -3,26 +3,23 @@ package com.solvd.online_shop.services.impl;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.solvd.online_shop.dao.impl.ICartItemDao;
-import com.solvd.online_shop.dao.impl.IOrderDao;
-import com.solvd.online_shop.dao.impl.IReviewDao;
-import com.solvd.online_shop.dao.impl.IUserDao;
-import com.solvd.online_shop.dao.interfaces.OrderDao;
-import com.solvd.online_shop.dao.interfaces.ReviewDao;
-import com.solvd.online_shop.dao.interfaces.UserDao;
+import com.solvd.online_shop.dao.impl.CartItemDao;
+import com.solvd.online_shop.dao.impl.OrderDao;
+import com.solvd.online_shop.dao.impl.ReviewDao;
+import com.solvd.online_shop.dao.impl.UserDao;
 import com.solvd.online_shop.models.User;
 
 public class UserService {
-    private final IUserDao userDao;
-    private final IOrderDao orderDao;
-    private final ICartItemDao cartItemDao;
-    private final IReviewDao reviewDao;
+    private final UserDao userDao;
+    private final OrderDao orderDao;
+    private final CartItemDao cartItemDao;
+    private final ReviewDao reviewDao;
 
     public UserService() {
-        this.userDao = new IUserDao();
-        this.orderDao = new IOrderDao();
-        this.cartItemDao = new ICartItemDao();
-        this.reviewDao = new IReviewDao();
+        this.userDao = new UserDao();
+        this.orderDao = new OrderDao();
+        this.cartItemDao = new CartItemDao();
+        this.reviewDao = new ReviewDao();
     }
 
     public void addUser(User user) throws SQLException {

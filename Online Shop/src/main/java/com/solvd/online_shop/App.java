@@ -1,6 +1,5 @@
 package com.solvd.online_shop;
 
-
 import com.solvd.online_shop.models.*;
 import com.solvd.online_shop.services.impl.*;
 
@@ -133,7 +132,7 @@ public class App {
         }
 
         logger.info("---- Testing ReviewService ----");
-         try {
+        try {
             // Add a new review
             Review review = new Review(0, 1, 1, 5, "Amazing suit, I feel like Iron Man!", null);
             reviewService.addReview(review);
@@ -167,7 +166,8 @@ public class App {
         logger.info("---- Testing DiscountService ----");
         try {
             // Add new discount
-            Discount discount = new Discount(0, 1, 10.0, java.sql.Date.valueOf("2023-01-01"), java.sql.Date.valueOf("2023-12-31"));
+            Discount discount = new Discount(0, 1, 10.0, java.sql.Date.valueOf("2023-01-01"),
+                    java.sql.Date.valueOf("2023-12-31"));
             discountService.addDiscount(discount);
             logger.info("Added Discount: " + discount.getPercentage() + "%");
 
@@ -184,6 +184,3 @@ public class App {
         }
     }
 }
-
-
-
