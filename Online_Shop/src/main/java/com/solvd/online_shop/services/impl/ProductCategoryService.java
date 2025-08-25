@@ -18,16 +18,16 @@ public class ProductCategoryService {
     }
 
     public void addProductToCategory(Product product, Category category) throws SQLException {
-        categoryDao.addCategory(category);
+        categoryDao.add(category);
         product.setCategoryId(category.getCategoryId());
-        productDao.addProduct(product);
+        productDao.add(product);
     }
 
     public List<Product> getProductsByCategory(int categoryId) throws SQLException {
-        return productDao.getAllProducts();
+        return productDao.getAll();
     }
 
     public List<Category> getAllCategories() throws SQLException {
-        return categoryDao.getAllCategories();
+        return categoryDao.getAll();
     }
 }

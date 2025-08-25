@@ -1,6 +1,10 @@
 package com.solvd.online_shop.dao.impl;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +23,11 @@ public class CartItemDao implements ICartItemDao {
     private static final String DELETE_CART_ITEMS_BY_PRODUCT_ID = "DELETE FROM CartItems WHERE product_id = ?";
     private static final String DELETE_CART_ITEMS_BY_USER_ID = "DELETE FROM CartItems WHERE cart_id IN (SELECT cart_id FROM Carts WHERE user_id = ?)";
     private static final String GET_CART_ITEMS_BY_USER_ID = "SELECT * FROM CartItems WHERE cart_id = (SELECT cart_id FROM Carts WHERE user_id = ?)";
-
+    
+    ConnectionPool pool = ConnectionPool.getInstance();
     @Override
-    public void addCartItem(CartItem cartItem) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
+    public void add(CartItem cartItem) throws SQLException {
+        try (Connection conn = pool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(INSERT_CART_ITEM)) {
             stmt.setInt(1, cartItem.getCartId());
             stmt.setInt(2, cartItem.getProductId());
@@ -32,9 +37,9 @@ public class CartItemDao implements ICartItemDao {
     }
 
     @Override
-    public CartItem getCartItemById(int id) throws SQLException {
+    public CartItem getById(int id) throws SQLException {
         CartItem cartItem = null;
-        try (Connection conn = ConnectionPool.getConnection();
+        try (Connection conn = pool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(GET_CART_ITEM_BY_ID)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -50,9 +55,9 @@ public class CartItemDao implements ICartItemDao {
     }
 
     @Override
-    public List<CartItem> getAllCartItems() throws SQLException {
+    public List<CartItem> getAll() throws SQLException {
         List<CartItem> cartItems = new ArrayList<>();
-        try (Connection conn = ConnectionPool.getConnection();
+        try (Connection conn = pool.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(GET_ALL_CART_ITEMS)) {
             while (rs.next()) {
@@ -67,8 +72,8 @@ public class CartItemDao implements ICartItemDao {
     }
 
     @Override
-    public void updateCartItem(CartItem cartItem) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
+    public void update(CartItem cartItem) throws SQLException {
+        try (Connection conn = pool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(UPDATE_CART_ITEM)) {
             stmt.setInt(1, cartItem.getCartId());
             stmt.setInt(2, cartItem.getProductId());
@@ -79,8 +84,8 @@ public class CartItemDao implements ICartItemDao {
     }
 
     @Override
-    public void deleteCartItem(int id) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
+    public void delete(int id) throws SQLException {
+        try (Connection conn = pool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(DELETE_CART_ITEM)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
@@ -89,7 +94,7 @@ public class CartItemDao implements ICartItemDao {
 
     @Override
     public void deleteCartItemsByCartId(int cartId) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
+        try (Connection conn = pool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(DELETE_CART_ITEMS_BY_CART_ID)) {
             stmt.setInt(1, cartId);
             stmt.executeUpdate();
@@ -98,7 +103,7 @@ public class CartItemDao implements ICartItemDao {
 
     @Override
     public void deleteCartItemsByProductId(int productId) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
+        try (Connection conn = pool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(DELETE_CART_ITEMS_BY_PRODUCT_ID)) {
             stmt.setInt(1, productId);
             stmt.executeUpdate();
@@ -107,7 +112,7 @@ public class CartItemDao implements ICartItemDao {
 
     @Override
     public void deleteCartItemsByUserId(int userId) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
+        try (Connection conn = pool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(DELETE_CART_ITEMS_BY_USER_ID)) {
             stmt.setInt(1, userId);
             stmt.executeUpdate();
@@ -117,7 +122,7 @@ public class CartItemDao implements ICartItemDao {
     @Override
     public List<CartItem> getCartItemsByUserId(int userId) throws SQLException {
         List<CartItem> cartItems = new ArrayList<>();
-        try (Connection conn = ConnectionPool.getConnection();
+        try (Connection conn = pool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(GET_CART_ITEMS_BY_USER_ID)) {
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();

@@ -14,18 +14,18 @@ public class DiscountService {
     }
 
     public void addDiscount(Discount discount) throws SQLException {
-        discountDao.addDiscount(discount);
+        discountDao.add(discount);
     }
 
     public List<Discount> getAllDiscounts() throws SQLException {
-        return discountDao.getAllDiscounts();
+        return discountDao.getAll();
     }
 
     public void updateDiscount(Discount discount) throws SQLException {
-        discountDao.updateDiscount(discount);
+        discountDao.update(discount);
     }
 
     public void deleteDiscount(int id) throws SQLException {
-        discountDao.deleteDiscount(id);
+        discountDao.delete(id);
     }
 }

@@ -5,16 +5,16 @@ import java.util.List;
 
 import com.solvd.online_shop.models.CartItem;
 
-public interface ICartItemDao {
-    void addCartItem(CartItem cartItem) throws SQLException;
+public interface ICartItemDao extends IGenericDao<CartItem> {
+    // void addCartItem(CartItem cartItem) throws SQLException;
 
-    CartItem getCartItemById(int id) throws SQLException;
+    // CartItem getCartItemById(int id) throws SQLException;
 
-    List<CartItem> getAllCartItems() throws SQLException;
+    // List<CartItem> getAllCartItems() throws SQLException;
 
-    void updateCartItem(CartItem cartItem) throws SQLException;
+    // void updateCartItem(CartItem cartItem) throws SQLException;
 
-    void deleteCartItem(int id) throws SQLException;
+    // void deleteCartItem(int id) throws SQLException;
 
     void deleteCartItemsByCartId(int cartId) throws SQLException;
 

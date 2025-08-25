@@ -18,27 +18,27 @@ public class CategoryService {
     }
 
     public void addCategory(Category category) throws SQLException {
-        categoryDao.addCategory(category);
+        categoryDao.add(category);
     }
 
     public Category getCategoryById(int id) throws SQLException {
-        return categoryDao.getCategoryById(id);
+        return categoryDao.getById(id);
     }
 
     public List<Category> getAllCategories() throws SQLException {
-        return categoryDao.getAllCategories();
+        return categoryDao.getAll();
     }
 
     public List<Product> getProductsByCategory(int categoryId) throws SQLException {
 
-        return productDao.getAllProducts();
+        return productDao.getAll();
     }
 
     public void updateCategory(Category category) throws SQLException {
-        categoryDao.updateCategory(category);
+        categoryDao.update(category);
     }
 
     public void deleteCategory(int id) throws SQLException {
-        categoryDao.deleteCategory(id);
+        categoryDao.delete(id);
     }
 }

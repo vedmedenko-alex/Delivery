@@ -11,15 +11,15 @@ import java.util.Properties;
 
 public class ConnectionPool {
 
-    private static String URL;
-    private static String USER;
-    private static String PASSWORD;
-    private static int POOL_SIZE;
+    private String URL;
+    private String USER;
+    private String PASSWORD;
+    private int POOL_SIZE;
 
-    private static final List<Connection> pool = new ArrayList<>();
+    private final List<Connection> pool = new ArrayList<>();
     private static ConnectionPool instance;
 
-    static {
+    private ConnectionPool() {
         Properties p = new Properties();
         try (InputStream in = ConnectionPool.class
                 .getClassLoader()
@@ -44,9 +44,6 @@ public class ConnectionPool {
         }
     }
 
-    private ConnectionPool() {
-    }
-
     public static synchronized ConnectionPool getInstance() {
         if (instance == null) {
             instance = new ConnectionPool();
@@ -54,14 +51,14 @@ public class ConnectionPool {
         return instance;
     }
 
-    public static synchronized Connection getConnection() throws SQLException {
+    public synchronized Connection getConnection() throws SQLException {
         if (pool.isEmpty()) {
             return createProxyConnection(DriverManager.getConnection(URL, USER, PASSWORD));
         }
         return pool.remove(pool.size() - 1);
     }
 
-    private static Connection createProxyConnection(Connection realConn) {
+    private Connection createProxyConnection(Connection realConn) {
         return (Connection) Proxy.newProxyInstance(
                 ConnectionPool.class.getClassLoader(),
                 new Class[]{Connection.class},
@@ -74,16 +71,16 @@ public class ConnectionPool {
                 });
     }
 
-    public static synchronized void releaseConnection(Connection c) {
+    private synchronized void releaseConnection(Connection c) {
         try {
             if (c != null && !c.isClosed()) {
-                pool.add(c);
+                pool.add(createProxyConnection(c));
             }
         } catch (SQLException ignored) {
         }
     }
 
-    public static synchronized void shutdown() {
+    public synchronized void shutdown() {
         for (Connection c : pool) {
             try {
                 if (c != null && !c.isClosed()) {

@@ -13,18 +13,19 @@ import com.solvd.online_shop.dao.interfaces.IUserDao;
 import com.solvd.online_shop.models.User;
 
 public class UserDao implements IUserDao {
+
     private static final String INSERT_USER = "INSERT INTO Users (name, email, password) VALUES (?, ?, ?)";
     private static final String GET_USER_BY_ID = "SELECT * FROM Users WHERE user_id = ?";
     private static final String GET_ALL_USERS = "SELECT * FROM Users";
     private static final String UPDATE_USER = "UPDATE Users SET name = ?, email = ?, password = ? WHERE user_id = ?";
     private static final String DELETE_USER = "DELETE FROM Users WHERE user_id = ?";
     private static final String GET_USER_BY_EMAIL = "SELECT * FROM Users WHERE email = ?";
+    ConnectionPool pool = ConnectionPool.getInstance();
 
     @Override
     public User getUserByEmail(String email) throws SQLException {
         User user = null;
-        try (Connection conn = ConnectionPool.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(GET_USER_BY_EMAIL)) {
+        try (Connection conn = pool.getConnection(); PreparedStatement stmt = conn.prepareStatement(GET_USER_BY_EMAIL)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -39,9 +40,8 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public void addUser(User user) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(INSERT_USER)) {
+    public void add(User user) throws SQLException {
+        try (Connection conn = pool.getConnection(); PreparedStatement stmt = conn.prepareStatement(INSERT_USER)) {
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
@@ -50,10 +50,9 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public User getUserById(int id) throws SQLException {
+    public User getById(int id) throws SQLException {
         User user = null;
-        try (Connection conn = ConnectionPool.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(GET_USER_BY_ID)) {
+        try (Connection conn = pool.getConnection(); PreparedStatement stmt = conn.prepareStatement(GET_USER_BY_ID)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -65,11 +64,9 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAll() throws SQLException {
         List<User> users = new ArrayList<>();
-        try (Connection conn = ConnectionPool.getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(GET_ALL_USERS)) {
+        try (Connection conn = pool.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(GET_ALL_USERS)) {
             while (rs.next()) {
                 users.add(new User(rs.getInt("user_id"), rs.getString("name"), rs.getString("email"),
                         rs.getString("password")));
@@ -79,9 +76,8 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public void updateUser(User user) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(UPDATE_USER)) {
+    public void update(User user) throws SQLException {
+        try (Connection conn = pool.getConnection(); PreparedStatement stmt = conn.prepareStatement(UPDATE_USER)) {
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
@@ -91,9 +87,8 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public void deleteUser(int id) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(DELETE_USER)) {
+    public void delete(int id) throws SQLException {
+        try (Connection conn = pool.getConnection(); PreparedStatement stmt = conn.prepareStatement(DELETE_USER)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }

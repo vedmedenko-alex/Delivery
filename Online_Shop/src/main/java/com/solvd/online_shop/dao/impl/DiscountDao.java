@@ -1,6 +1,10 @@
 package com.solvd.online_shop.dao.impl;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +20,11 @@ public class DiscountDao implements IDiscountDao {
     private static final String UPDATE_DISCOUNT = "UPDATE Discounts SET product_id = ?, percentage = ?, valid_from = ?, valid_to = ? WHERE discount_id = ?";
     private static final String DELETE_DISCOUNT = "DELETE FROM Discounts WHERE discount_id = ?";
     private static final String DELETE_DISCOUNTS_BY_PRODUCT_ID = "DELETE FROM Discounts WHERE product_id = ?";
+    ConnectionPool pool = ConnectionPool.getInstance();
 
     @Override
-    public void addDiscount(Discount discount) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(INSERT_DISCOUNT)) {
+    public void add(Discount discount) throws SQLException {
+        try (Connection conn = pool.getConnection(); PreparedStatement stmt = conn.prepareStatement(INSERT_DISCOUNT)) {
             stmt.setInt(1, discount.getProductId());
             stmt.setDouble(2, discount.getPercentage());
             stmt.setDate(3, discount.getValidFrom());
@@ -30,10 +34,9 @@ public class DiscountDao implements IDiscountDao {
     }
 
     @Override
-    public Discount getDiscountById(int id) throws SQLException {
+    public Discount getById(int id) throws SQLException {
         Discount discount = null;
-        try (Connection conn = ConnectionPool.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(GET_DISCOUNT_BY_ID)) {
+        try (Connection conn = pool.getConnection(); PreparedStatement stmt = conn.prepareStatement(GET_DISCOUNT_BY_ID)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -49,11 +52,9 @@ public class DiscountDao implements IDiscountDao {
     }
 
     @Override
-    public List<Discount> getAllDiscounts() throws SQLException {
+    public List<Discount> getAll() throws SQLException {
         List<Discount> discounts = new ArrayList<>();
-        try (Connection conn = ConnectionPool.getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(GET_ALL_DISCOUNTS)) {
+        try (Connection conn = pool.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(GET_ALL_DISCOUNTS)) {
             while (rs.next()) {
                 discounts.add(new Discount(
                         rs.getInt("discount_id"),
@@ -67,9 +68,8 @@ public class DiscountDao implements IDiscountDao {
     }
 
     @Override
-    public void updateDiscount(Discount discount) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(UPDATE_DISCOUNT)) {
+    public void update(Discount discount) throws SQLException {
+        try (Connection conn = pool.getConnection(); PreparedStatement stmt = conn.prepareStatement(UPDATE_DISCOUNT)) {
             stmt.setInt(1, discount.getProductId());
             stmt.setDouble(2, discount.getPercentage());
             stmt.setDate(3, discount.getValidFrom());
@@ -80,9 +80,8 @@ public class DiscountDao implements IDiscountDao {
     }
 
     @Override
-    public void deleteDiscount(int id) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(DELETE_DISCOUNT)) {
+    public void delete(int id) throws SQLException {
+        try (Connection conn = pool.getConnection(); PreparedStatement stmt = conn.prepareStatement(DELETE_DISCOUNT)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
@@ -90,8 +89,7 @@ public class DiscountDao implements IDiscountDao {
 
     @Override
     public void deleteDiscountsByProductId(int productId) throws SQLException {
-        try (Connection conn = ConnectionPool.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(DELETE_DISCOUNTS_BY_PRODUCT_ID)) {
+        try (Connection conn = pool.getConnection(); PreparedStatement stmt = conn.prepareStatement(DELETE_DISCOUNTS_BY_PRODUCT_ID)) {
             stmt.setInt(1, productId);
             stmt.executeUpdate();
         }

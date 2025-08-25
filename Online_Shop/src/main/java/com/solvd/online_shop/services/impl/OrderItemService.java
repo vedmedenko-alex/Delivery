@@ -18,12 +18,12 @@ public class OrderItemService {
     }
 
     public void addOrderItem(Order order, Product product) throws SQLException {
-        orderDao.addOrder(order);
-        productDao.addProduct(product);
+        orderDao.add(order);
+        productDao.add(product);
     }
 
     public List<Product> getProductsInOrder(int orderId) throws SQLException {
-        return productDao.getAllProducts();
+        return productDao.getAll();
     }
 
 }

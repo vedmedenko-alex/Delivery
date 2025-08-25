@@ -1,20 +1,19 @@
 package com.solvd.online_shop.dao.interfaces;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import com.solvd.online_shop.models.Order;
 
-public interface IOrderDao {
-    void addOrder(Order order) throws SQLException;
+public interface IOrderDao extends IGenericDao<Order>{
+    // void addOrder(Order order) throws SQLException;
 
-    Order getOrderById(int id) throws SQLException;
+    // Order getOrderById(int id) throws SQLException;
 
-    List<Order> getAllOrders() throws SQLException;
+    // List<Order> getAllOrders() throws SQLException;
 
-    void updateOrder(Order order) throws SQLException;
+    // void updateOrder(Order order) throws SQLException;
 
-    void deleteOrder(int id) throws SQLException;
+    // void deleteOrder(int id) throws SQLException;
 
     void deleteOrdersByUserId(int userId) throws SQLException;
 }

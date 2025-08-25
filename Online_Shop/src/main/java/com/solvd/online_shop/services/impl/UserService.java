@@ -26,25 +26,25 @@ public class UserService {
         if (userDao.getUserByEmail(user.getEmail()) != null) {
             throw new SQLException("User with email " + user.getEmail() + " already exists.");
         }
-        userDao.addUser(user);
+        userDao.add(user);
     }
 
     public User getUserById(int id) throws SQLException {
-        return userDao.getUserById(id);
+        return userDao.getById(id);
     }
 
     public List<User> getAllUsers() throws SQLException {
-        return userDao.getAllUsers();
+        return userDao.getAll();
     }
 
     public void updateUser(User user) throws SQLException {
-        userDao.updateUser(user);
+        userDao.update(user);
     }
 
     public void deleteUser(int id) throws SQLException {
         orderDao.deleteOrdersByUserId(id);
         cartItemDao.deleteCartItemsByUserId(id);
         reviewDao.deleteReviewsByUserId(id);
-        userDao.deleteUser(id);
+        userDao.delete(id);
     }
 }

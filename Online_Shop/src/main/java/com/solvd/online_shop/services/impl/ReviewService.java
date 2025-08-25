@@ -14,22 +14,22 @@ public class ReviewService {
     }
 
     public void addReview(Review review) throws SQLException {
-        reviewDao.addReview(review);
+        reviewDao.add(review);
     }
 
     public Review getReviewById(int id) throws SQLException {
-        return reviewDao.getReviewById(id);
+        return reviewDao.getById(id);
     }
 
     public List<Review> getReviewsForProduct(int productId) throws SQLException {
-        return reviewDao.getAllReviews();
+        return reviewDao.getAll();
     }
 
     public void updateReview(Review review) throws SQLException {
-        reviewDao.updateReview(review);
+        reviewDao.update(review);
     }
 
     public void deleteReview(int id) throws SQLException {
-        reviewDao.deleteReview(id);
+        reviewDao.delete(id);
     }
 }

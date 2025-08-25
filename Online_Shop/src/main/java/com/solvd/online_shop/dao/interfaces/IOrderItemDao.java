@@ -2,7 +2,9 @@ package com.solvd.online_shop.dao.interfaces;
 
 import java.sql.SQLException;
 
-public interface IOrderItemDao {
+import com.solvd.online_shop.models.OrderItem;
+
+public interface IOrderItemDao extends IGenericDao<OrderItem>{
     // void addOrderItem(OrderItem orderItem) throws SQLException;
     // OrderItem getOrderItemById(int id) throws SQLException;
     // List<OrderItem> getAllOrderItems() throws SQLException; 

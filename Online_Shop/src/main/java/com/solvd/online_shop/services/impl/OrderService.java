@@ -18,27 +18,27 @@ public class OrderService {
     }
 
     public void addOrder(Order order) throws SQLException {
-        orderDao.addOrder(order);
+        orderDao.add(order);
     }
 
     public Order getOrderById(int id) throws SQLException {
-        return orderDao.getOrderById(id);
+        return orderDao.getById(id);
     }
 
     public List<Order> getAllOrders() throws SQLException {
-        return orderDao.getAllOrders();
+        return orderDao.getAll();
     }
 
     public List<Product> getProductsForOrder(int orderId) throws SQLException {
 
-        return productDao.getAllProducts();
+        return productDao.getAll();
     }
 
     public void updateOrder(Order order) throws SQLException {
-        orderDao.updateOrder(order);
+        orderDao.update(order);
     }
 
     public void deleteOrder(int id) throws SQLException {
-        orderDao.deleteOrder(id);
+        orderDao.delete(id);
     }
 }

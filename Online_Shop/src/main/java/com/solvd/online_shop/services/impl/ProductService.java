@@ -23,25 +23,25 @@ public class ProductService {
     }
 
     public void addProduct(Product product) throws SQLException {
-        productDao.addProduct(product);
+        productDao.add(product);
     }
 
     public Product getProductById(int id) throws SQLException {
-        return productDao.getProductById(id);
+        return productDao.getById(id);
     }
 
     public List<Product> getAllProducts() throws SQLException {
-        return productDao.getAllProducts();
+        return productDao.getAll();
     }
 
     public void updateProduct(Product product) throws SQLException {
-        productDao.updateProduct(product);
+        productDao.update(product);
     }
 
     public void deleteProduct(int id) throws SQLException {
         orderItemDao.deleteOrderItemsByProductId(id);
         cartItemDao.deleteCartItemsByProductId(id);
         discountDao.deleteDiscountsByProductId(id);
-        productDao.deleteProduct(id);
+        productDao.delete(id);
     }
 }
